@@ -22,32 +22,41 @@ import SwiftUI
  
  */
 
-//enum Shading: Int, CaseIterable {
-//    case solid
-//    case stripe
-//    case outline
-//}
-//enum Color: Int, CaseIterable {
-//    case color1
-//    case color2
-//    case color3
-//}
-//enum Shape: Int, CaseIterable {
-//    case roundy
-//    case boxy
-//    case pointy
-//}
-//enum Number: Int, CaseIterable {
-//    case one=1
-//    case two
-//    case three
-//}
-//public private(set) var number: Number
-//public private(set) var shape: Shape
-//public private(set) var color: Color
-//public private(set) var shading: Shading
-//private var numberRaw: Int {number.rawValue}
-//private var shapeRaw: Int {shape.rawValue}
-//private var colorRaw: Int {color.rawValue}
-//private var shadingRaw: Int {shading.rawValue}
-//static let properties : [KeyPath<Card, Int>] = [\Card.numberRaw, \Card.shapeRaw, \Card.colorRaw, \Card.shapeRaw]
+class ViewModelSetGame: ObservableObject {
+    typealias SetGame = ModelSetGame<Shape, Color, Shading, Number>
+    typealias Card = SetGame.Card
+
+    @Published private var model = createSetGame()
+
+    
+    private static func createSetGame() -> SetGame {
+        ModelSetGame()
+    }
+    
+    var cardsOnBoard: [Card] {
+        model.cardsOnBoard
+    }
+
+    
+        // put functions that show user intent in the viewModel
+        // MARK: - Intent(s)
+//
+//    func choose(_ card: Card) {
+//        model.choose(card)
+//    }
+    
+    enum Shape: Int, CaseIterable {
+        case round, box, point
+    }
+    enum Color: Int, CaseIterable {
+        case white, green, red
+    }
+    enum Shading: Int, CaseIterable {
+        case none, fill, stripe
+    }
+    enum Number: Int, CaseIterable{
+        case one,two, three
+    }
+}
+
+
